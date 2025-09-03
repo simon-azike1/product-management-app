@@ -2,9 +2,12 @@ import React from 'react'
 
 const SearchBar = () => {
   return (
-    <div>
-      
-    </div>
+   <>
+   <div className="flex justify-center item-center bg-red-300 mx-w-full">
+    
+   </div>
+   
+   </>
   )
 }
 

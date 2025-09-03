@@ -4,24 +4,24 @@ import Home from './components/Home'
 import AddItems from './components/AddItems'
 import ItemsDisplay from './components/ItemsDisplay'
 import Navbar from './Navbar/Navbar'
+import useDisplayLogic from './hooks/useDisplayLogic'
+import { ItemsProvider } from './components/ItemsContext'
 
 function App() {
-  const [items, setItems] = useState([
-    { name: "Grain", type: "Original", price: 20, brand: "Nike" },
-    { name: "Veges", type: "New", price: 23, brand: "Olaola" },
-    { name: "Carbon", type: "Original", price: 90, brand: "Nike" },
-    { name: "Protein", type: "Original", price: 89, brand: "Nike" },
-  ])
+  const {items,addItemToData} = useDisplayLogic();
+ 
 
   return (
-    <Router>
+    <ItemsProvider>
+ <Router>
       <Navbar />
       <Routes>
         <Route path='/' element={<Home />} />
-        <Route path='/add-items' element={<AddItems items={items} setItems={setItems} />} />
+        <Route path='/add-items' element={<AddItems addItemToData={addItemToData}/>} />
         <Route path='/items' element={<ItemsDisplay displayItems={items} />} />
       </Routes>
     </Router>
+    </ItemsProvider>
   )
 }
 

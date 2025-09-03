@@ -1,14 +1,16 @@
-import { useState } from 'react'
+import { useState , useContext} from 'react'
 import Button from '../Buttons/Button'
 import {Link} from 'react-router-dom'
+import { ItemsContext } from './ItemsContext'
 
-const AddItems = (props) => {
+const AddItems = () => {
+  const {addItemToData} = useContext(ItemsContext);
   const [name, setName] = useState("")
   const [price, setPrice] = useState("")
   const [brand, setBrand] = useState("")
   const [type, setType] = useState("")
   const [message, setMessage] = useState("")
-  const [items, setItems] = useState([]) 
+  
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -17,11 +19,8 @@ const AddItems = (props) => {
       return
     }
 
-    const newItems = {name,price,brand,type}
-    setItems(prevItems =>{const latestItems=[...prevItems, newItems]
-    console.log(latestItems)
-    return latestItems;
-    })
+    const newItems = {name,price,brand,type};
+    addItemToData(newItems);
 
     setMessage(`Item "${name}" added successfully!`)
     setName('')
@@ -79,9 +78,7 @@ const AddItems = (props) => {
           <Button className="bg-green-600 hover:text-black font-semibold p-2 rounded">View Items</Button>
         </Link>
           </div>
-         
         </form>
-        
       </div>
     </>
   )
