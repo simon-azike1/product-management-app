@@ -31,7 +31,7 @@ const AddItems = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-white p-6">
-      <div className="max-w-2xl mx-auto">
+      <div className="max-w-2xl mx-auto mt-23">
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-foreground mb-2">Add New Product</h1>
           <p className="text-muted-foreground">Fill in the details below to add a new item to your inventory</p>
