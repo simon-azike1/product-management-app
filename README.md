@@ -68,4 +68,5 @@ Pull requests are welcome! For major changes, please open an issue first to disc
 [MIT](LICENSE)
 
 
-<img width="1341" height="626" alt="image" src="https://github.com/user-attachments/assets/74bf1f47-2abf-4335-910f-92690c6416c9" />
+<img width="1348" height="608" alt="image" src="https://github.com/user-attachments/assets/36fb53a6-eac1-43a8-9f13-8e2e8ee00ecc" />
+
