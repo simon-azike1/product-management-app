@@ -1,78 +1,119 @@
-import React, { useContext } from 'react'
-import { ItemsContext } from './ItemsContext'
-import Button from '../Buttons/Button'
-import { Link } from 'react-router-dom'
+import { useContext } from "react"
+import { ItemsContext } from "./ItemsContext"
+import { Link } from "react-router-dom"
 
 const ItemsDisplay = () => {
-  const { items = [], deleteItem , filter, setFilter,filterItems= []} = useContext(ItemsContext)
+  const { items = [], deleteItem, filter, setFilter, filterItems = [] } = useContext(ItemsContext)
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <div className="bg-white rounded-lg shadow-lg p-8 w-full max-w-3xl">
-        <h2 className="text-2xl font-bold text-blue-700 mb-6 text-center">
-          Product Inventory
-        </h2>
-
-{/* Search Input */}
-        <input
-          type="text"
-          value={filter}
-          onChange={(e) => setFilter(e.target.value)}
-          placeholder="Search by name, brand, or type..."
-          className="w-full p-2 mb-4 border rounded"
-        />
-{/* Filtered Section */}
-{filter && (
-  filterItems.length === 0 ? (
-    <p className="text-gray-500 text-center">No items match your search.</p>
-  ) : (
-    <ul className="divide-y divide-gray-200">
-      {filterItems.map((item, index) => (
-        <li key={index} className="py-3 px-2 flex flex-col gap-1 hover:bg-blue-50 transition rounded">
-          <span className="text-gray-800 font-medium">Name: {item.name}</span>
-          <span className="text-green-600 font-semibold">Price: ₦{item.price}</span>
-          <span className="text-gray-500">Brand: {item.brand}</span>
-          <span className="text-gray-400">Type: {item.type}</span>
-        </li>
-      ))}
-    </ul>
-  )
-)}
-
-        {items.length === 0 ? (
-          <p className="text-gray-500 text-center">No items to display.</p>
-        ) : (
-          <ul className="divide-y divide-gray-200">
-            {items.map((item) => (
-              <li
-                key={item.id}
-                className="py-3 px-2 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 hover:bg-blue-50 transition rounded"
-              >
-                <div className="flex flex-col">
-                  <span className="text-gray-800 font-medium">Name: {item.name}</span>
-                  <span className="text-green-600 font-semibold">Price: ₦{item.price}</span>
-                  <span className="text-gray-500">Brand: {item.brand}</span>
-                  <span className="text-gray-400">Type: {item.type}</span>
-                </div>
-
-                <Button
-                  className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded"
-                  onClick={() => deleteItem(item.id)}
-                >
-                  Delete
-                </Button>
-              </li>
-            ))}
-          </ul>
-        )}
-
-        <div className="mt-6 flex justify-center">
-          <Link to="/add-items">
-            <Button className="bg-blue-600 hover:bg-blue-700">
-              Add New Item
-            </Button>
-          </Link>
+    <div className="min-h-screen bg-slate-50">
+      {/* Header Section */}
+      <div className="border-b bg-white shadow-sm">
+        <div className="container mx-auto px-4 py-6">
+          <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between mt-25">
+            <div>
+              <h1 className="text-3xl font-bold text-gray-900">Product Inventory</h1>
+              <p className="text-gray-600">Manage your product catalog and inventory</p>
+            </div>
+            <Link to="/add-items">
+              <button className="inline-flex items-center px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg transition-colors">
+                <span className="mr-2">+</span>
+                Add New Product
+              </button>
+            </Link>
+          </div>
         </div>
+      </div>
+
+      {/* Search and Filter Section */}
+      <div className="container mx-auto px-4 py-6">
+        <div className="flex flex-col gap-4 md:flex-row md:items-center">
+          <div className="relative flex-1">
+            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">🔍</span>
+            <input
+              type="text"
+              value={filter}
+              onChange={(e) => setFilter(e.target.value)}
+              placeholder="Search by name, brand, or type..."
+              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg bg-white focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 outline-none"
+            />
+          </div>
+          <button className="inline-flex items-center px-4 py-2 border border-gray-300 bg-white hover:bg-gray-50 text-gray-700 font-medium rounded-lg transition-colors">
+            <span className="mr-2">⚙️</span>
+            Filters
+          </button>
+        </div>
+
+        {/* Results Summary */}
+        <div className="mt-4 flex items-center gap-2">
+          <span className="text-gray-500">📦</span>
+          <span className="text-sm text-gray-600">
+            {filter ? `${filterItems.length} of ${items.length} products` : `${items.length} products total`}
+          </span>
+        </div>
+      </div>
+
+      {/* Products Grid */}
+      <div className="container mx-auto px-4 pb-8">
+        {filter && filterItems.length === 0 ? (
+          <div className="bg-white border border-gray-200 rounded-lg shadow-sm">
+            <div className="flex flex-col items-center justify-center py-12 px-6">
+              <span className="text-4xl mb-4">📦</span>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">No products found</h3>
+              <p className="text-gray-600 text-center">
+                No items match your search criteria. Try adjusting your search terms.
+              </p>
+            </div>
+          </div>
+        ) : items.length === 0 ? (
+          <div className="bg-white border border-gray-200 rounded-lg shadow-sm">
+            <div className="flex flex-col items-center justify-center py-12 px-6">
+              <span className="text-4xl mb-4">📦</span>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">No products yet</h3>
+              <p className="text-gray-600 text-center mb-4">
+                Start building your inventory by adding your first product.
+              </p>
+              <Link to="/add-items">
+                <button className="inline-flex items-center px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-medium rounded-lg transition-colors">
+                  <span className="mr-2">+</span>
+                  Add Your First Product
+                </button>
+              </Link>
+            </div>
+          </div>
+        ) : (
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {(filter ? filterItems : items).map((item) => (
+              <div
+                key={item.id}
+                className="bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition-shadow"
+              >
+                <div className="p-6 pb-3">
+                  <div className="flex items-start justify-between">
+                    <div className="space-y-1">
+                      <h3 className="text-lg font-semibold text-gray-900">{item.name}</h3>
+                      <p className="text-gray-600">{item.brand}</p>
+                    </div>
+                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800">
+                      {item.type}
+                    </span>
+                  </div>
+                </div>
+                <div className="px-6 pb-6">
+                  <div className="flex items-center justify-between">
+                    <div className="text-2xl font-bold text-emerald-600">₦{Number(item.price).toLocaleString()}</div>
+                    <button
+                      onClick={() => deleteItem(item.id)}
+                      className="inline-flex items-center px-3 py-1.5 bg-red-600 hover:bg-red-700 text-white text-sm font-medium rounded-md transition-colors"
+                    >
+                      🗑️
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   )

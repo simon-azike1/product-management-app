@@ -6,6 +6,7 @@ import ItemsDisplay from './components/ItemsDisplay'
 import Navbar from './Navbar/Navbar'
 import useDisplayLogic from './hooks/useDisplayLogic'
 import { ItemsProvider } from './components/ItemsContext'
+import Footer from './components/Footer'
 
 function App() {
   const {items,addItemToData} = useDisplayLogic();
@@ -20,6 +21,7 @@ function App() {
         <Route path='/add-items' element={<AddItems addItemToData={addItemToData}/>} />
         <Route path='/items' element={<ItemsDisplay displayItems={items} />} />
       </Routes>
+      <Footer/>
     </Router>
     </ItemsProvider>
   )
